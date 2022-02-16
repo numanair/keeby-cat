@@ -1,0 +1,4 @@
+[submodule "Libraries/marbastlib"]
+	path = Libraries/marbastlib
+	url = https://github.com/numanair/marbastlib.git
+	branch = untested
