@@ -1,0 +1,7 @@
+(fp_lib_table
+  (lib (name "Keeby-Cat Footprints")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Footprints")(options "")(descr ""))
+  (lib (name "marbastlib-mx")(type "KiCad")(uri "${KIPRJMOD}/Libraries/marbastlib/marbastlib-mx.pretty")(options "")(descr ""))
+  (lib (name "marbastlib-various")(type "KiCad")(uri "${KIPRJMOD}/Libraries/marbastlib/marbastlib-various.pretty")(options "")(descr ""))
+  (lib (name "marbastlib-choc")(type "KiCad")(uri "${KIPRJMOD}/Libraries/marbastlib/marbastlib-choc.pretty")(options "")(descr "")(disabled))
+  (lib (name "kbd-footprints")(type "KiCad")(uri "${KIPRJMOD}/Libraries/kbd/kicad-footprints/kbd.pretty")(options "")(descr ""))
+)

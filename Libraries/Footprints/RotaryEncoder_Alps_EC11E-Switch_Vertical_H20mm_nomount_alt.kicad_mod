@@ -1,6 +1,6 @@
 (footprint "RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm_nomount_alt" (version 20211014) (generator pcbnew)
   (layer "F.Cu")
-  (tedit 6209E1B4)
+  (tedit 620D0288)
   (descr "Alps rotary encoder, EC12E... with switch, vertical shaft, http://www.alps.com/prod/info/E/HTML/Encoder/Incremental/EC11/EC11E15204A3.html")
   (tags "rotary encoder")
   (attr through_hole)
@@ -41,7 +41,7 @@
   (pad "C" thru_hole circle (at -7.5 0) (size 2 2) (drill 1) (layers *.Cu *.Mask) (tstamp 502034ae-5e89-4caf-a607-76b0acaede92))
   (pad "S1" thru_hole circle (at 7 2.5) (size 2 2) (drill 1) (layers *.Cu *.Mask) (tstamp 57a45468-d89a-4506-b762-61fd99bfb05c))
   (pad "S2" thru_hole circle (at 7 -2.5) (size 2 2) (drill 1) (layers *.Cu *.Mask) (tstamp 5c8e8b9b-f7a7-4c92-8e1a-fcdb1074a841))
-  (model "pec11r-4x20f-sxxxx.stp"
+  (model "${KIPRJMOD}/Libraries/Packages3D/pec11r-4x20f-sxxxx.stp"
     (offset (xyz 0 0 5.5))
     (scale (xyz 1 1 1))
     (rotate (xyz -90 0 -90))

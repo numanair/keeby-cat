@@ -1,0 +1,7 @@
+(sym_lib_table
+  (lib (name "YAAJ_BluePill_modified")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/YAAJ_BluePill_modified.kicad_sym")(options "")(descr ""))
+  (lib (name "marbastlib-mx")(type "KiCad")(uri "${KIPRJMOD}/Libraries/marbastlib/marbastlib-mx.kicad_sym")(options "")(descr ""))
+  (lib (name "marbastlib-various")(type "KiCad")(uri "${KIPRJMOD}/Libraries/marbastlib/marbastlib-various.kicad_sym")(options "")(descr ""))
+  (lib (name "PS60 Linear Potentiometer")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/PS60.kicad_sym")(options "")(descr ""))
+  (lib (name "kbd")(type "KiCad")(uri "${KIPRJMOD}/Libraries/kbd/kicad-symbols/kbd.kicad_sym")(options "")(descr ""))
+)

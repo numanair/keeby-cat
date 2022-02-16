@@ -1,6 +1,6 @@
 (footprint "BluePill_bttn_basic" (version 20211014) (generator pcbnew)
   (layer "F.Cu")
-  (tedit 620CF93D)
+  (tedit 620D03BD)
   (descr "Through hole headers for BluePill module. No SWD breakout. Fancy silkscreen.")
   (tags "module BlluePill Blue Pill header SWD breakout")
   (property "Sheetfile" "keeb test board.kicad_sch")

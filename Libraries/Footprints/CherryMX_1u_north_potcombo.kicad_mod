@@ -1,6 +1,6 @@
 (footprint "CherryMX_1u_north_potcombo" (version 20211014) (generator pcbnew)
   (layer "F.Cu")
-  (tedit 620C657B)
+  (tedit 620D06A4)
   (attr through_hole)
   (fp_text reference "SW6" (at 4.2 5.1 180) (layer "F.SilkS")
     (effects (font (size 1 1) (thickness 0.15)))
@@ -32,18 +32,13 @@
   (pad "1" thru_hole circle (at 3.81 2.54 180) (size 2.5 2.5) (drill 1.5) (layers *.Cu "F.SilkS" "B.Mask") (tstamp 6f23ec34-a626-41d8-9fa8-5175c4d8b159))
   (pad "2" thru_hole oval (at -3.2512 5.23) (size 3 2) (drill oval 2 1) (layers *.Cu "F.SilkS" "B.Mask") (tstamp 16b631e1-ac4b-4c5f-8e82-48a1cb322fef))
   (pad "2" thru_hole circle (at -2.54 5.08 180) (size 2.5 2.5) (drill 1.5) (layers *.Cu "F.SilkS" "B.Mask") (tstamp 3d260348-bee9-44e0-baf8-a0ae94275499))
-  (model "C:/Users/Cole/OneDrive/Documents/KiCad/Library DLs/kbd/kicad-packages3D/kbd.3dshapes/CherryMX Switch.step" hide
+  (model "${KIPRJMOD}/Libraries/kbd/kicad-packages3D/kbd.3dshapes/CherryMX Switch.step"
     (offset (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 180))
   )
-  (model "${KIPRJMOD}/keyswitch no cap.step"
-    (offset (xyz -7.35 -7.35 6.1))
-    (scale (xyz 1 1 1))
-    (rotate (xyz -90 0 0))
-  )
-  (model "${KIPRJMOD}/cap.step"
-    (offset (xyz 0 0 11.62))
+  (model "${KIPRJMOD}/Libraries/Packages3D/keycap.step"
+    (offset (xyz 0 0 11.55))
     (scale (xyz 1 1 1))
     (rotate (xyz -90 0 0))
   )
