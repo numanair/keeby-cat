@@ -4,38 +4,58 @@ plate_thick=5 - 0.2;
 plate_thin=1.5;
 
 //array of positions
-//k = keyswitch
-//f = fader. Can be anywhere in row 1
-//e = encoder knob. Can be in columns 1 and 3, but only one *per row* 1-4 at a time.
-//o = OLED. Goes in row 5, column 2+3.
-//b = blank panel
-matrix = [
+//0 = blank panel
+//1 = keyswitch
+//2 = encoder knob.
+// Encoders can be in columns 1 and 3, but each row 1-4 can only have one at a time (per row).
+// One exception: encoder cannot go in row 5 column 3.
+//3 = fader. Can be anywhere in row 1
+//4 = OLED. Goes in row 5, column 2+3.
+layout_matrix = [
     //row 1. Overrides keys in other rows when fader defined
-    k,k,k,
+    [1,1,1],
     //row 2
-    k,k,k,
+    [0,1,2],
     //row 3
-    k,k,k,
+    [0,1,0],
     //row 4
-    k,k,k,
+    [0,1,0],
+    //separator
+    [0,0,0],
     //row 5 (top section)
-    e,b,b,
+    [0,0,0],
     ];
 
 //pitch
 key_unit=19.050;
 
-for ( i=[0:1:3-1]) {
-    for ( j=[0:1:5]) {
+union(){
+for ( i=[0:3-1]) {
+    for ( j=[0:5]) {
         if(j<4){
         translate([i*key_unit,j*key_unit,0])
-        keyswitch_plate();
+            if(layout_matrix[j][i]==0){
+            blank_plate();
+            }
+            else if(layout_matrix[j][i]==1){
+            keyswitch_plate();
+            }
+            else if(layout_matrix[j][i]==2){
+            encoder_plate();
+            }
         }
         else if(j>4){
             translate([i*key_unit,(j-1)*key_unit+key_unit/4,0]){
-//            keyswitch_plate();
+            if(layout_matrix[j][i]==0){
             blank_plate();
-            }   
+            }
+            else if(layout_matrix[j][i]==1){
+            keyswitch_plate();
+            }
+            else if(layout_matrix[j][i]==2){
+            encoder_plate();
+            }
+            }
         }
         else if(j==4)
             if(i==0){
@@ -44,6 +64,7 @@ for ( i=[0:1:3-1]) {
             }
         }
     }
+}
 }
 
 module keyswitch_plate(){
@@ -62,6 +83,22 @@ difference(){
     }
 }
 }
+module encoder_plate(){
+    difference() {
+    linear_extrude(plate_thick) difference(){
+    square(key_unit);
+    translate([(key_unit-14.45)/2,(key_unit-13.5)/2,0]){
+    square([14.45,13.5]);
+    }
+    }
+    translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
+    square(16);
+    }
+    }
+    }
+
+}
+
 
 module blank_plate(){
         linear_extrude(plate_thick){
