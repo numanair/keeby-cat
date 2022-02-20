@@ -13,7 +13,7 @@ plate_thin=1.5;
 //4 = OLED. Goes in row 5, column 2+3.
 //5 = empty. Tenporary solution
 layout_matrix = [
- //row 1. Overrides keys in other rows when fader defined
+ //row 1. Manually override keys in other rows when a fader is defined.
  [3,1,0],
  //row 2
  [5,1,2],
@@ -34,46 +34,44 @@ main();
 
 module main(){
 union(){
-for ( i=[0:3-1]) {
- for ( j=[0:5]) {
-  if(j<4){
-  translate([i*key_unit,j*key_unit,0])
-   if(layout_matrix[j][i]==0){
-    blank_plate();
+ for ( i=[0:len(layout_matrix[0])-1]) {
+  for ( j=[0:len(layout_matrix)-1]) {
+   if(j<4){
+    translate([i*key_unit,j*key_unit,0])
+    plate_gen(layout_matrix[j][i]);
    }
-   else if(layout_matrix[j][i]==1){
-    keyswitch_plate();
+   else if(j==4){
+    if(i==0)
+    translate([i*key_unit,j*key_unit,0])
+    separator();
    }
-   else if(layout_matrix[j][i]==2){
-    encoder_plate();
-   }
-   else if(layout_matrix[j][i]==3){
-    fader_plate();
-   }
-  }
-  //
-  else if(j>4){
-   translate([i*key_unit,(j-1)*key_unit+key_unit/4,0]){
-    if(layout_matrix[j][i]==0){
-   blank_plate();
-   }
-    else if(layout_matrix[j][i]==1){
-    keyswitch_plate();
-   }
-    else if(layout_matrix[j][i]==2){
-    encoder_plate();
-   }
-   }
-  }
-  else if(j==4)
-   if(i==0){
-   translate([0,key_unit*j,0]){
-   separator();
+   else if(j>4){
+    translate([i*key_unit,j*key_unit-key_unit*3/4,0])
+    plate_gen(layout_matrix[j][i]);
    }
   }
  }
+ }
 }
-}
+
+//chooses correct plate
+module plate_gen(plate=0){
+ if(plate==0){
+  blank_plate();
+ }
+ else if(plate==1){
+  keyswitch_plate();
+ }
+ else if(plate==2){
+  encoder_plate();
+ }
+ else if(plate==3){
+  fader_plate();
+ }
+ else if(plate==5){
+ }
+ else{blank_plate();
+ }
 }
 
 module keyswitch_plate(){
