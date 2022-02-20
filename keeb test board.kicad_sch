@@ -4,6 +4,10 @@
 
   (paper "USLetter")
 
+  (title_block
+    (rev "v${revision}")
+  )
+
   (lib_symbols
     (symbol "L_POT_Dual_PS60M_combo_1" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "VR" (id 0) (at 0 8.89 0)
