@@ -3,6 +3,12 @@ $fn=25;
 plate_thick=5 - 0.2;
 plate_thin=1.5;
 
+//pitch
+key_unit=19.050;
+
+overall_width=60;
+overall_length=102.8625;
+
 //array of positions
 //0 = blank panel
 //1 = keyswitch
@@ -14,43 +20,60 @@ plate_thin=1.5;
 //5 = empty. Tenporary solution
 layout_matrix = [
  //row 1. Manually override keys in other rows when a fader is defined.
- [3,1,0],
+ [3,2,0],
  //row 2
- [5,1,2],
+ [0,1,2],
  //row 3
- [5,1,2],
+ [0,1,2],
  //row 4
- [5,1,2],
+ [0,1,2],
  //separator
  [0,0,0],
  //row 5 (top section)
- [0,0,0],
+ [0,0,1],
  ];
 
-//pitch
-key_unit=19.050;
 
 main();
 
+// j = y
+// i = x
 module main(){
-union(){
- for ( i=[0:len(layout_matrix[0])-1]) {
-  for ( j=[0:len(layout_matrix)-1]) {
-   if(j<4){
-    translate([i*key_unit,j*key_unit,0])
-    plate_gen(layout_matrix[j][i]);
-   }
-   else if(j==4){
-    if(i==0)
-    translate([i*key_unit,j*key_unit,0])
-    separator();
-   }
-   else if(j>4){
-    translate([i*key_unit,j*key_unit-key_unit*3/4,0])
-    plate_gen(layout_matrix[j][i]);
+ union(){
+  for ( i=[0:len(layout_matrix[0])-1]) {
+   for ( j=[0:len(layout_matrix)-1]) {
+    if(j<4){
+     if(j==0){
+      translate([i*key_unit,j*key_unit,0])
+      plate_gen(layout_matrix[j][i]);
+     }
+     else if(layout_matrix[0][i]==3){
+      translate([i*key_unit,j*key_unit,0])
+      plate_gen(5);
+     }
+     else if(layout_matrix[0][i]!=3){
+      translate([i*key_unit,j*key_unit,0])
+      plate_gen(layout_matrix[j][i]);
+     }
+    }
+    else if(j==4){
+     if(i==0){
+     translate([i*key_unit,j*key_unit,0])
+     separator();
+     }
+    }
+    else if(j>4){
+     translate([i*key_unit,j*key_unit-key_unit*3/4,0])
+     plate_gen(layout_matrix[j][i]);
+    }
    }
   }
- }
+  //outer perimeter
+  linear_extrude(plate_thick) difference(){
+  translate([(key_unit*len(layout_matrix[0])-overall_width)/2,(key_unit*(len(layout_matrix)-3/4)-overall_length)/2,0])
+  square([overall_width,overall_length]);
+  square([key_unit*len(layout_matrix[0]),key_unit*len(layout_matrix)-key_unit*3/4]);
+  }
  }
 }
 
@@ -75,20 +98,20 @@ module plate_gen(plate=0){
 }
 
 module keyswitch_plate(){
-difference(){
- linear_extrude(plate_thick) difference(){
-  square(key_unit);
-  union(){
-   translate([(key_unit-14)/2,(key_unit-14)/2]) square(14);
-    translate([(key_unit-15.6)/2,(key_unit-3.1)/2-(5.8+3.1)/2]) square([15.6,3.1]);
-    translate([(key_unit-15.6)/2,(key_unit-3.1)/2+(5.8+3.1)/2]) square([15.6,3.1]);
+ difference(){
+  linear_extrude(plate_thick) difference(){
+   square(key_unit);
+   union(){
+    translate([(key_unit-14)/2,(key_unit-14)/2]) square(14);
+     translate([(key_unit-15.6)/2,(key_unit-3.1)/2-(5.8+3.1)/2]) square([15.6,3.1]);
+     translate([(key_unit-15.6)/2,(key_unit-3.1)/2+(5.8+3.1)/2]) square([15.6,3.1]);
+   }
+  }
+  translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
+  square(16);
+  }
   }
  }
- translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
- square(16);
- }
- }
-}
 }
 
 module encoder_plate(){
