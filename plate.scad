@@ -19,7 +19,7 @@ overall_length=102.8625;
 //4 = OLED. Goes in row 5, column 2+3.
 //5 = empty. Tenporary solution
 layout_matrix = [
- //row 1. Manually override keys in other rows when a fader is defined.
+ //row 1.
  [3,1,1],
  //row 2
  [0,1,1],
@@ -33,7 +33,6 @@ layout_matrix = [
  [1,4,4],
  ];
 
-
 main();
 
 // j = y
@@ -42,14 +41,6 @@ module main(){
  union(){
   for ( i=[0:len(layout_matrix[0])-1]) {
    for ( j=[0:len(layout_matrix)-1]) {
-    // TODO if mod2 then even=encoders ok, odd = button or blank or pot (minus top spot)
-    // for ( k=[0:])
-    // let(indexnum=)
-    // if(layout_matrix[j][i]==mod2){
-
-
-    // if (layout_matrix[j][i]<=5){
-
     if(j<4){
      translate([i*key_unit,j*key_unit,0])
      //middle
@@ -58,9 +49,6 @@ module main(){
        if(layout_matrix[0][i]==3){
         plate_gen(5);
        }
-       // else if(layout_matrix[j][i]==2){
-       //  plate_gen(0);
-       // }
        else plate_gen(layout_matrix[j][i]);
        }
        else if(layout_matrix[j][i]==2){
@@ -94,19 +82,20 @@ module main(){
      translate([i*key_unit,j*key_unit-key_unit*3/4,0])
      plate_gen(layout_matrix[j][i]);
     }
-    // }
-    
+    bezel();
     }
    }
-  }
-  //outer bezel
-  linear_extrude(plate_thick) difference(){
-  translate([(key_unit*len(layout_matrix[0])-overall_width)/2,(key_unit*(len(layout_matrix)-3/4)-overall_length)/2,0])
-  square([overall_width,overall_length]);
-  square([key_unit*len(layout_matrix[0]),key_unit*len(layout_matrix)-key_unit*3/4]);
-  }
  }
+}
 
+//outer bezel
+module bezel(){
+ linear_extrude(plate_thick) difference(){
+ translate([(key_unit*len(layout_matrix[0])-overall_width)/2,(key_unit*(len(layout_matrix)-3/4)-overall_length)/2,0])
+ square([overall_width,overall_length]);
+ square([key_unit*len(layout_matrix[0]),key_unit*len(layout_matrix)-key_unit*3/4]);
+ }
+}
 
 //chooses correct plate
 module plate_gen(plate=0){
