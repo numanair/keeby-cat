@@ -117,6 +117,12 @@ module plate_gen(plate=0){
  }
 }
 
+module blank_plate(){
+  linear_extrude(plate_thick){
+ square(key_unit);
+ }
+}
+
 module keyswitch_plate(){
  difference(){
   linear_extrude(plate_thick) difference(){
@@ -128,30 +134,24 @@ module keyswitch_plate(){
    }
   }
   translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
-  square(16);
-  }
+   square(16);
+   }
   }
  }
 }
 
 module encoder_plate(){
  difference() {
- linear_extrude(plate_thick) difference(){
- square(key_unit);
- translate([(key_unit-14.45)/2,(key_unit-13.5)/2,0]){
- square([14.45,13.5]);
- }
- }
- translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
- square(16);
- }
- }
- }
-}
-
-module blank_plate(){
-  linear_extrude(plate_thick){
- square(key_unit);
+  linear_extrude(plate_thick) difference(){
+   square(key_unit);
+   translate([(key_unit-14.45)/2,(key_unit-13.5)/2,0]){
+   square([14.45,13.5]);
+   }
+   }
+  translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
+  square(16);
+  }
+  }
  }
 }
 
