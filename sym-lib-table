@@ -4,4 +4,5 @@
   (lib (name "marbastlib-various")(type "KiCad")(uri "${KIPRJMOD}/Libraries/marbastlib/marbastlib-various.kicad_sym")(options "")(descr ""))
   (lib (name "PS60 Linear Potentiometer")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/PS60.kicad_sym")(options "")(descr ""))
   (lib (name "kbd")(type "KiCad")(uri "${KIPRJMOD}/Libraries/kbd/kicad-symbols/kbd.kicad_sym")(options "")(descr ""))
+  (lib (name "keeby-cat-symbols")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/keeby-cat-symbols.kicad_sym")(options "")(descr ""))
 )
