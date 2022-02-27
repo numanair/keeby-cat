@@ -5,6 +5,7 @@ $fn=24;
 
 plate_thick=5 - 0.2;
 plate_thin=1.5;
+polyholes = false;
 
 //pitch
 key_unit=19.050;
@@ -23,17 +24,17 @@ overall_length=102.8625;
 //5 = empty. Tenporary solution
 layout_matrix = [
  //row 1.
- [1,1,1],
+ [3,1,1],
  //row 2
  [1,1,1],
  //row 3
  [1,1,1],
  //row 4
- [1,1,2],
+ [1,1,1],
  //separator
  [0,0,0],
  //row 5 (top section)
- [1,1,1],
+ [2,1,1],
  ];
 
 x_center = (key_unit*len(layout_matrix[0])-overall_width)/2;
@@ -236,9 +237,15 @@ module fillet(){
 }
 
 module screw_module(){
- // screw_dia = 2 + .3;
- // cylinder(r=screw_dia/2, h=plate_thick, center=true);
- screw_polysink(M2_cs_cap_screw, h = 100, alt = false, sink = 0.2);
+ screw_dia = 2 + .3;
+ if (polyholes == true) {
+  cylinder(r=screw_dia/2, h=plate_thick, center=true);
+  screw_polysink(M2_cs_cap_screw, h = 100, alt = false, sink = 0.2);
+ }
+ else{
+  screw_countersink(M2_cs_cap_screw, drilled = false);
+  cylinder(r=screw_dia/2, h=plate_thick*4, center=true);
+ }
 }
 
 module mounting_holes() {
@@ -248,5 +255,8 @@ module mounting_holes() {
  // Lower 2
  translate([key_unit,key_unit*2,plate_thick]) screw_module(); // Bottom left
  translate([key_unit*2,key_unit*2,plate_thick]) screw_module(); // Bottom right
+ 
+ // translate([key_unit,0,plate_thick]) screw_module(); // 
+ // translate([key_unit*2,0,plate_thick]) screw_module(); // 
 
 }
