@@ -1,3 +1,6 @@
+// include <NopSCADlib/core.scad>
+include <NopSCADlib/lib.scad>
+
 $fn=24;
 
 plate_thick=5 - 0.2;
@@ -91,6 +94,8 @@ module main(){
    }
   } // end union
   pin_cut();
+  // mounting holes go here
+  mounting_holes();
   }
   fillet();
  } // end intersection 
@@ -99,9 +104,9 @@ module main(){
 //outer bezel
 module bezel(){
  linear_extrude(plate_thick) difference(){
- translate([x_center,y_center,0])
- square([overall_width,overall_length]);
- translate([+0.1,+0.1,0]) square([key_unit*len(layout_matrix[0])-0.2,key_unit*len(layout_matrix)-key_unit*3/4-0.2]);
+  translate([x_center,y_center,0])
+  square([overall_width,overall_length]);
+  translate([+0.1,+0.1,0]) square([key_unit*len(layout_matrix[0])-0.2,key_unit*len(layout_matrix)-key_unit*3/4-0.2]);
  }
 }
 
@@ -168,15 +173,15 @@ module encoder_plate(){
 }
 
 module OLED_plate(){
- //2x1 part. Origin in middle column, last row.
+ // 2x1 part. Origin in middle column, last row.
  difference() {
  linear_extrude(plate_thick)
  difference(){
  color([.3,.6,.6])
  square([key_unit*2,key_unit]);
  color([1,0,0])
-//  translate([0,(key_unit-(12.15+0.4))/2,0])
-//  square([38+0.2,12.15+0.4]);
+// translate([0,(key_unit-(12.15+0.4))/2,0])
+// square([38+0.2,12.15+0.4]);
  translate([key_unit*2-3.1,(key_unit-(12.15+0.4))/2,0])
  square([3.5,12.15+0.4]);
  }
@@ -199,7 +204,7 @@ module separator(){
  cube([3*key_unit,1/4*key_unit,plate_thick]);
 }
 
-//Pin headers
+// Pin headers
 module pin_cut(){
  translate([x_center+21,y_center+overall_length-53-1.6,-0.1]) cube([3,53-1.6,plate_thick-plate_thin+0.1]);
  translate([x_center+overall_width-21-3,y_center+overall_length-53-1.6,-0.1]) cube([3,53-1.6,plate_thick-plate_thin+0.1]);
@@ -214,6 +219,7 @@ module fillet(){
   // Full Y
   translate([x_center+fillet_radius,y_center,0])
   cube([overall_width-fillet_radius*2,overall_length,plate_thick]);
+  // Corners
   translate([x_center+fillet_radius,y_center+fillet_radius,plate_thick/2])
    cylinder(r=fillet_radius, h=plate_thick, center=true); // bottom left
   
@@ -227,4 +233,20 @@ module fillet(){
    cylinder(r=fillet_radius, h=plate_thick, center=true); // top right
   
  }
+}
+
+module screw_module(){
+ // screw_dia = 2 + .3;
+ // cylinder(r=screw_dia/2, h=plate_thick, center=true);
+ screw_polysink(M2_cs_cap_screw, h = 100, alt = false, sink = 0.2);
+}
+
+module mounting_holes() {
+ // Upper 2
+ translate([key_unit/2,key_unit*(4+1/8),plate_thick]) screw_module(); // Top left
+ translate([2.5*key_unit,key_unit*(4+1/8),plate_thick]) screw_module(); // Top right
+ // Lower 2
+ translate([key_unit,key_unit*2,plate_thick]) screw_module(); // Bottom left
+ translate([key_unit*2,key_unit*2,plate_thick]) screw_module(); // Bottom right
+
 }
