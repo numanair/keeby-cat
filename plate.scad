@@ -1,10 +1,12 @@
 // include <NopSCADlib/core.scad>
 include <NopSCADlib/lib.scad>
+include <Chamfers-for-OpenSCAD/Chamfer.scad>
 
 $fn=24;
 
 plate_thick=5 - 0.2;
 plate_thin=1.5;
+chamfer_size=0.6; // not H
 polyholes = false;
 
 //pitch
@@ -34,7 +36,7 @@ layout_matrix = [
  //separator
  [0,0,0],
  //row 5 (top section)
- [2,1,1],
+ [2,4,1],
  ];
 
 x_center = (key_unit*len(layout_matrix[0])-overall_width)/2;
@@ -45,9 +47,10 @@ main();
 // j = y
 // i = x
 module main(){
+  // intersection(){
  intersection(){
- difference(){
- union(){
+  difference(){
+  union(){
   for ( i=[0:len(layout_matrix[0])-1]) {
    for ( j=[0:len(layout_matrix)-1]) {
     if(j<4){
@@ -87,6 +90,13 @@ module main(){
     }
     // top row
     else if(j>4){
+     if (i==2) {
+      // checks for OLED in middle column 
+      if (layout_matrix[5][1]==4) {
+       plate_gen(5);
+      }
+     }
+     else
      translate([i*key_unit,j*key_unit-key_unit*3/4,0])
      plate_gen(layout_matrix[j][i]);
     }
@@ -100,6 +110,8 @@ module main(){
   }
   fillet();
  } // end intersection 
+// translate([0, overall_length-40, 0]) cube([overall_width,40,plate_thick]);
+// }
 }
 
 //outer bezel
@@ -194,10 +206,10 @@ module OLED_plate(){
 module fader_plate(){
  linear_extrude(plate_thick)
  difference(){
-  square([key_unit+0.2,key_unit*4]);
-  translate([(key_unit-10)/2,(key_unit*4-75.1 + 0.35)/2,0]){
-  square([10,75.1 + 0.35]);
-  }
+  translate([-0.1,-0.1,0])
+  square([key_unit+0.2,key_unit*4+0.2]); // outer
+  translate([(key_unit-10)/2,(key_unit*4-75.1 + 0.35)/2,0])
+  square([10,75.1 + 0.35]); // inner 
  }
 }
 
@@ -214,24 +226,27 @@ module pin_cut(){
 module fillet(){
  fillet_radius = 2;
  union(){
-  // Full X
-  translate([x_center,y_center+fillet_radius,0])
-  cube([overall_width,overall_length-fillet_radius*2,plate_thick]);
-  // Full Y
-  translate([x_center+fillet_radius,y_center,0])
-  cube([overall_width-fillet_radius*2,overall_length,plate_thick]);
+  difference(){
+  translate([x_center,y_center,0]) chamferCube([overall_width,overall_length,plate_thick],[[1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 0, 0]],chamfer_size);
+  
+  translate([x_center,y_center,0]) cube([fillet_radius,fillet_radius,plate_thick]);
+  translate([x_center+overall_width-fillet_radius,y_center,0]) cube([fillet_radius,fillet_radius,plate_thick]);
+  translate([x_center,y_center+overall_length-fillet_radius,0]) cube([fillet_radius,fillet_radius,plate_thick]);
+  translate([x_center+overall_width-fillet_radius,y_center+overall_length-fillet_radius,0]) cube([fillet_radius,fillet_radius,plate_thick]);
+  }
+
   // Corners
-  translate([x_center+fillet_radius,y_center+fillet_radius,plate_thick/2])
-   cylinder(r=fillet_radius, h=plate_thick, center=true); // bottom left
+  translate([x_center+fillet_radius,y_center+fillet_radius,0])
+   chamferCylinder(r=fillet_radius,  h=plate_thick, ch=chamfer_size); // bottom left
   
-  translate([x_center-fillet_radius+overall_width,y_center+fillet_radius,plate_thick/2])
-   cylinder(r=fillet_radius, h=plate_thick, center=true); // bottom right
+  translate([x_center-fillet_radius+overall_width,y_center+fillet_radius,0])
+   chamferCylinder(r=fillet_radius,  h=plate_thick, ch=chamfer_size); // bottom right
   
-  translate([x_center+fillet_radius,y_center+overall_length-fillet_radius,plate_thick/2])
-   cylinder(r=fillet_radius, h=plate_thick, center=true); // top left
+  translate([x_center+fillet_radius,y_center+overall_length-fillet_radius,0])
+   chamferCylinder(r=fillet_radius,  h=plate_thick, ch=chamfer_size); // top left
   
-  translate([x_center-fillet_radius+overall_width,y_center+overall_length-fillet_radius,plate_thick/2])
-   cylinder(r=fillet_radius, h=plate_thick, center=true); // top right
+  translate([x_center-fillet_radius+overall_width,y_center+overall_length-fillet_radius,0])
+   chamferCylinder(r=fillet_radius,  h=plate_thick, ch=chamfer_size); // top right
   
  }
 }
@@ -240,7 +255,7 @@ module screw_module(){
  screw_dia = 2 + .3;
  if (polyholes == true) {
   cylinder(r=screw_dia/2, h=plate_thick, center=true);
-  screw_polysink(M2_cs_cap_screw, h = 100, alt = false, sink = 0.2);
+  screw_polysink(M2_cs_cap_screw, h = 100, alt = false, sink = 0.4);
  }
  else{
   screw_countersink(M2_cs_cap_screw, drilled = false);
