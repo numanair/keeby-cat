@@ -2954,6 +2954,23 @@
     )
   )
 
+  (symbol (lib_id "Mechanical:MountingHole") (at 110.49 78.74 0) (unit 1)
+    (in_bom yes) (on_board yes) (fields_autoplaced)
+    (uuid eeee06f1-b1d6-4a0a-9afb-bc6f990265ed)
+    (property "Reference" "H5" (id 0) (at 113.03 77.4699 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "MountingHole" (id 1) (at 113.03 80.0099 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Keeby-Cat Footprints:MountingHole_2.2mm_M2_DIN965" (id 2) (at 110.49 78.74 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (id 3) (at 110.49 78.74 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
   (symbol (lib_id "power:+3V3") (at 86.36 45.72 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid f501d6f0-5586-4692-9113-de3ae833b780)
@@ -3413,10 +3430,10 @@
       (reference "D3") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
     )
     (path "/6ce8230c-595b-49b4-b7e1-27c56bb79809/3ce2fe9d-52b5-4ed5-906e-0b3e596089a9"
-      (reference "D4") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
+      (reference "D4") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E_rotated")
     )
     (path "/6ce8230c-595b-49b4-b7e1-27c56bb79809/5c324ce2-6999-456d-a7e3-26cd31e9fe5c"
-      (reference "D5") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
+      (reference "D5") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E_rotated")
     )
     (path "/6ce8230c-595b-49b4-b7e1-27c56bb79809/1225e9a7-7d2b-4330-acc2-96167debd483"
       (reference "D6") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
@@ -3437,7 +3454,7 @@
       (reference "D11") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
     )
     (path "/6ce8230c-595b-49b4-b7e1-27c56bb79809/3b415046-c0f3-46bd-858f-63e0064bd46f"
-      (reference "D12") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
+      (reference "D12") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E_rotated")
     )
     (path "/6ce8230c-595b-49b4-b7e1-27c56bb79809/7eb787a0-452b-46a7-87c4-2964bd23114b"
       (reference "D13") (unit 1) (value "SK6812MINI-E") (footprint "Keeby-Cat Footprints:LED_MX_SK6812MINI-E")
@@ -3486,6 +3503,9 @@
     )
     (path "/8ea18563-8d92-48ab-81f4-e90c6181f6de"
       (reference "H4") (unit 1) (value "MountingHole") (footprint "Keeby-Cat Footprints:MountingHole_2.2mm_M2_DIN965")
+    )
+    (path "/eeee06f1-b1d6-4a0a-9afb-bc6f990265ed"
+      (reference "H5") (unit 1) (value "MountingHole") (footprint "Keeby-Cat Footprints:MountingHole_2.2mm_M2_DIN965")
     )
     (path "/6ce8230c-595b-49b4-b7e1-27c56bb79809/368da0b2-4a09-4c1c-a7bd-9829d431f181"
       (reference "JP1") (unit 1) (value "SolderJumper_2_Open") (footprint "Keeby-Cat Footprints:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm")
