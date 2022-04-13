@@ -26,7 +26,7 @@ overall_length=102.8625;
 //5 = empty. Tenporary solution
 layout_matrix = [
  //row 1.
- [3,1,1],
+ [1,1,1],
  //row 2
  [1,1,1],
  //row 3
@@ -42,6 +42,8 @@ layout_matrix = [
 x_center = (key_unit*len(layout_matrix[0])-overall_width)/2;
 y_center = (key_unit*(len(layout_matrix)-3/4)-overall_length)/2;
 
+// keyswitch_plate();
+// fader_plate();
 main();
 
 // j = y
@@ -153,33 +155,35 @@ module blank_plate(){
 }
 
 module keyswitch_plate(){
+ inner_chamfer=1.3;
  difference(){
   linear_extrude(plate_thick) difference(){
    translate([-0.1,-0.1,0]) square(key_unit+0.2);
+   // bool subtract tool:
    union(){
-    translate([(key_unit-14)/2,(key_unit-14)/2]) square(14);
-    translate([(key_unit-15.6)/2,(key_unit-3.1)/2-(5.8+3.1)/2]) square([15.6,3.1]);
-    translate([(key_unit-15.6)/2,(key_unit-3.1)/2+(5.8+3.1)/2]) square([15.6,3.1]);
+    translate([key_unit/2,key_unit/2,0]) square([14 + 0.1,14],true); // square
+    translate([key_unit/2,key_unit/2-(5.8+3.1)/2]) square([15.6,3.1],true); // notch
+    translate([key_unit/2,key_unit/2+(5.8+3.1)/2]) square([15.6,3.1],true); // notch
    }
   }
-  translate([(key_unit-16)/2,(key_unit-16)/2,0]){linear_extrude(plate_thick-plate_thin){
-   square(16);
+  // subtract to create recess
+  translate([(key_unit-16)/2,(key_unit-16)/2,0]){
+  chamferCube([16,16,plate_thick-plate_thin],[[0, 0, 0, 0], [0, 0, 0, 0], [1, 1, 1, 1]],inner_chamfer);
    }
   }
  }
-}
 
 module encoder_plate(){
  difference() {
   linear_extrude(plate_thick) difference(){
    translate([-0.1,-0.1,0]) square(key_unit+0.2);
-   translate([(key_unit-14.45)/2,(key_unit-13.5)/2,0]){
-   square([14.45,13.5]);
+   translate([key_unit/2,key_unit/2,0]){
+   square([14.45,13.5],true);
    }
   }
-  translate([(key_unit-16)/2,(key_unit-16)/2,0]){
+  translate([key_unit/2,key_unit/2,0]){
    linear_extrude(plate_thick-plate_thin){
-   square(16);
+   square(16,true);
    }
   }
  }
@@ -208,8 +212,8 @@ module fader_plate(){
  difference(){
   translate([-0.1,-0.1,0])
   square([key_unit+0.2,key_unit*4+0.2]); // outer
-  translate([(key_unit-10)/2,(key_unit*4-75.1 + 0.35)/2,0])
-  square([10,75.1 + 0.35]); // inner 
+  translate([key_unit/2,key_unit*4/2,0])
+  square([10,75.1 + 0.35],true); // inner 
  }
 }
 
@@ -227,8 +231,9 @@ module fillet(){
  fillet_radius = 2;
  union(){
   difference(){
-  translate([x_center,y_center,0]) chamferCube([overall_width,overall_length,plate_thick],[[1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 0, 0]],chamfer_size);
-  
+  translate([x_center,y_center,0])
+  chamferCube([overall_width,overall_length,plate_thick],[[1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 0, 0]],chamfer_size);
+
   translate([x_center,y_center,0]) cube([fillet_radius,fillet_radius,plate_thick]);
   translate([x_center+overall_width-fillet_radius,y_center,0]) cube([fillet_radius,fillet_radius,plate_thick]);
   translate([x_center,y_center+overall_length-fillet_radius,0]) cube([fillet_radius,fillet_radius,plate_thick]);
@@ -252,14 +257,21 @@ module fillet(){
 }
 
 module screw_module(){
- screw_dia = 2 + .3;
+ screw_dia = 2 + 0.7;
+ screw_head_dia = 3.51 + 0.4;
  if (polyholes == true) {
   cylinder(r=screw_dia/2, h=plate_thick, center=true);
-  screw_polysink(M2_cs_cap_screw, h = 100, alt = false, sink = 0.4);
+  screw_polysink(M3_cs_cap_screw, h = 100, alt = false, sink = 0.4);
  }
  else{
-  screw_countersink(M2_cs_cap_screw, drilled = false);
+  // screw_countersink(M2_cs_cap_screw, drilled = false);
+  union(){
+  translate([0,0,-(1.4/2+2.2)]){
+    chamferCylinder(r=(screw_head_dia)/2,  h=2+.4+.7+2, ch=0.7);
+  }
+  //  cylinder(r=screw_dia/2, h=plate_thick*4, center=true);
   cylinder(r=screw_dia/2, h=plate_thick*4, center=true);
+  }
  }
 }
 
