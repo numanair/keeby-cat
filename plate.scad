@@ -161,7 +161,7 @@ module keyswitch_plate(){
    translate([-0.1,-0.1,0]) square(key_unit+0.2);
    // bool subtract tool:
    union(){
-    translate([key_unit/2,key_unit/2,0]) square([14 + 0.1,14],true); // square
+    translate([key_unit/2,key_unit/2,0]) square([14 + 0.1 + 0.3,14 + 0.4],true); // square
     translate([key_unit/2,key_unit/2-(5.8+3.1)/2]) square([15.6,3.1],true); // notch
     translate([key_unit/2,key_unit/2+(5.8+3.1)/2]) square([15.6,3.1],true); // notch
    }
