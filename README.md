@@ -29,3 +29,7 @@ The top left corner.
 ### OLED Screen
 
 An optional display can show layer information, key-states, and graphics. It replaces the top right pair of keyswitches.
+
+## Cases
+
+Two types of cases are available. The low-profile option is more minimal in material usage and features a 3-degree tilt. The high-profile case (`keeby_cat_case_retro-hi_v1.0.FCStd`) has a 5-degree tilt, but is actually slightly lower profile at the front. USB port placement on the high-profile case is currently more refined. It is designed for a Blue Pill board with a mid-mount micro USB port. These refinements will eventually be integrated into the low-profile case as well. To modify these CAD files, please use [realthunder's FreeCAD fork, stable build 2022.07.09.](https://github.com/realthunder/FreeCAD/releases/tag/2022.07.09-edge)
