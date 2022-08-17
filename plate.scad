@@ -46,8 +46,8 @@ y_center = (key_unit*(len(layout_matrix)-3/4)-overall_length)/2;
 // fader_plate();
 main();
 
-// j = y
-// i = x
+// j = y (row)
+// i = x (column)
 module main(){
   // intersection(){
  intersection(){
@@ -97,6 +97,9 @@ module main(){
       if (layout_matrix[5][1]==4) {
        plate_gen(5);
       }
+      else 
+      translate([i*key_unit,j*key_unit-key_unit*3/4,0])
+      plate_gen(layout_matrix[j][i]);
      }
      else
      translate([i*key_unit,j*key_unit-key_unit*3/4,0])
