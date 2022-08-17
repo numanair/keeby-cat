@@ -343,12 +343,10 @@
   },
   "libraries": {
     "pinned_footprint_libs": [],
-    "pinned_symbol_libs": [
-      "keeby-cat-symbols"
-    ]
+    "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "keeb test board.kicad_pro",
+    "filename": "keeby cat.kicad_pro",
     "version": 1
   },
   "net_settings": {

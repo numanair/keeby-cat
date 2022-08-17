@@ -1,7 +1,7 @@
 [submodule "Libraries/marbastlib"]
-	path = Libraries/marbastlib
+	path = Schematic/Libraries/marbastlib
 	url = https://github.com/numanair/marbastlib.git
 	branch = untested
 [submodule "Libraries/kbd"]
-	path = Libraries/kbd
+	path = Schematic/Libraries/kbd
 	url = https://github.com/numanair/kbd.git
