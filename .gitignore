@@ -30,3 +30,6 @@ fp-info-cache
 
 # FreeCAD backup files
 *.FCStd?
+
+# Blender backup files
+*.blend?
