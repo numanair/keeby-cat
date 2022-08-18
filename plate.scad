@@ -261,7 +261,7 @@ module fillet(){
 
 module screw_module(){
  screw_dia = 2 + 0.7;
- screw_head_dia = 3.51 + 0.4;
+ screw_head_dia = 3.51 + 0.6;
  if (polyholes == true) {
   cylinder(r=screw_dia/2, h=plate_thick, center=true);
   screw_polysink(M3_cs_cap_screw, h = 100, alt = false, sink = 0.4);
