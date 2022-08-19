@@ -12,6 +12,6 @@ The build order is critical to making a fully working Keeby Cat Macropad. Before
 3. Combine the (3D printed) top plate with the key switches.
 4. Install and solder
    1. Key switches: 3x spots over MCU must be done before soldering the MCU itself (SW3, SW6 and SW14).
-   2. Potentiometers: most importantly POT2 must be done before the MCU.
+   2. Potentiometers: most importantly POT2 must be done before the MCU. Fold the extra tabs flat. Note that one of the top legs must be straightened to fit in the PCB. After inserting the legs, fold the legs over flat so that they do not hit the blue pill later on.
    3. Solder MCU (Blue Pill) to the installed headers. The correct orientation has the MCU-side facing the ground when complete.
    4. OLED screen
